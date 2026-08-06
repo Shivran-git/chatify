@@ -3,7 +3,9 @@ import path from "path";
 import { PORT } from './Configurations/serverConfig.js';
 import authRouter from './routes/auth.route.js';
 import messageRouter from './routes/message.route.js'
+import { ConnectDb } from './Configurations/db.js';
 const app = express();
+app.use(express.json());
 
 const __dirname = path.resolve();
 console.log(__dirname);
@@ -20,4 +22,5 @@ if (process.env.NODE_ENV === "production") {
 
 app.listen(process.env.PORT || 3000, ()=>{
     console.log("server is started. ");
+    ConnectDb();
 })
