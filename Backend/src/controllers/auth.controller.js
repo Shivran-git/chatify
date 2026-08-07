@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import { generateToken } from "../utils/util.js";
 import { signupValidator } from "../validator/signupValidator.js";
 import { hasher } from "../utils/hasher.js";
+import { mailSender } from "../Configurations/resend.js";
 export const signup = async (req, res)=>{
 
      const {fullName, email, password} = req.body ;
@@ -31,7 +32,12 @@ const credentials = {
     await newUser.save();
 
     generateToken(newUser._id, res);
-
+    try{
+       await   mailSender(newUser.email, newUser.fullName);
+    }catch(error){
+       console.log("Failed to send the email .")
+    }
+ 
 
     res.status(201).json({
         id: newUser._id,
