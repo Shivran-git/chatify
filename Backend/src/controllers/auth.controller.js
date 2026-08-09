@@ -5,8 +5,8 @@ import { signupValidator } from "../validator/signupValidator.js";
 import { hasher } from "../utils/hasher.js";
 import { mailSender } from "../Configurations/resend.js";
 export const signup = async (req, res)=>{
-
      const {fullName, email, password} = req.body ;
+          if(!fullName || !email || !password) return res.status(400).json({message : "All fields required ."})
    const name =          fullName.trim().replace(/\s+/g, '') ;
    const modifiedEmail =  email.trim().toLowerCase() ;
    const pass =          password ;
