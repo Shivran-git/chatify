@@ -4,6 +4,8 @@ import { generateToken } from "../utils/util.js";
 import { signupValidator } from "../validator/signupValidator.js";
 import { hasher } from "../utils/hasher.js";
 import { mailSender } from "../Configurations/resend.js";
+
+
 export const signup = async (req, res)=>{
      const {fullName, email, password} = req.body ;
           if(!fullName || !email || !password) return res.status(400).json({message : "All fields required ."})
@@ -27,10 +29,10 @@ const credentials = {
     email : modifiedEmail,
     password : hashedPassword
  })
+
  if(newUser){
     
     await newUser.save();
-
     generateToken(newUser._id, res);
     try{
        await   mailSender(newUser.email, newUser.fullName);
@@ -38,8 +40,7 @@ const credentials = {
        console.log("Failed to send the email .")
     }
  
-
-    res.status(201).json({
+    return res.status(201).json({
         id: newUser._id,
         fullName : newUser.fullName,
         email : newUser.email,
