@@ -11,9 +11,9 @@ const router = express.Router();
 
 //router.use(arcjetProtection); // if this runs correctly then we can go to signup/login etc...
 
-router.post('/signup',  signup)
+router.post('/signup', signup)
 
-router.post('/login',  login )
+router.post('/login', login )
 
 router.post('/logout', logout)
 
