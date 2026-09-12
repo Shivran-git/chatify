@@ -4,8 +4,9 @@ import User from "../models/User.js";
 
 
 export const updateProfile = async (req, res)=>{
-
+           
        const {profilePic} = req.body ;
+       if(profilePic)console.log("I got the image ...")
        if(!profilePic) return res.status(400).json({message : "Image not found"});
        const userId = req.user._id ;
     try{

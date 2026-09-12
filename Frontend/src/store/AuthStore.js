@@ -7,7 +7,7 @@ authUser : null,
 isCheckingAuth : true ,
 isSigningUp: false ,
 isLoggingIn : false ,
-
+isUpdatingProfile : false ,
 checkAuth : async ()=>{
     try{
        const res = await axiosInstance.get("/auth/check");
@@ -45,7 +45,7 @@ login : async(data)=>{
   console.log(data);
   try{
        const res = await axiosInstance.post('/auth/login' ,data);
-       set({authUser : res.data});
+     await  set({authUser : res.data});
        toast.success("LOGGED IN SUCCESSFULLY");
   }catch(error){
       toast.error(error.response.data.message);
@@ -61,6 +61,21 @@ logout : async()=>{
      set({authUser : null})
     }catch(error){
 toast.error(error.response.data.message);
+    }
+},
+
+updateProfile : async (data)=> {
+    try{
+        set({isUpdatingProfile : true}) ;
+        const res = await axiosInstance.put("/auth/update", data)
+        set({authUser:res.data})
+        toast.success("Profile updated successfully");
+
+    }catch(error){
+              console.log("error in updating the profile", error);
+              toast.error(error.data.message);
+    }finally{
+        set({isUpdatingProfile : false})
     }
 }
 
