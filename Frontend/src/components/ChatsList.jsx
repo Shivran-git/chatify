@@ -18,7 +18,7 @@ if(chats.length === 0) return <NoChatsFound/>
 
   return (
     <>
-    <div>Chats here .</div>
+    
     {chats.map((chat)=>(
         <div
         key={chat._id}

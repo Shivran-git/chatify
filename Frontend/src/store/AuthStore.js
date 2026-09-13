@@ -1,6 +1,7 @@
 import {create} from 'zustand' 
 import { axiosInstance } from '../lib/axios.js'
 import toast from 'react-hot-toast';
+import { ChatStore } from './ChatStore.js';
 
 export const useAuthStore = create((set)=>({
 authUser : null,
@@ -43,7 +44,9 @@ toast.error(error.response.data.message)
 login : async(data)=>{
   set({isLoggingIn : true});
   console.log(data);
+ 
   try{
+    
        const res = await axiosInstance.post('/auth/login' ,data);
      await  set({authUser : res.data});
        toast.success("LOGGED IN SUCCESSFULLY");
@@ -55,10 +58,12 @@ login : async(data)=>{
 },
 
 logout : async()=>{
+     const {selectedUser} = ChatStore.getState();
     try{
      const res = await axiosInstance.post("/auth/logout");
      toast.success(res.data.message);
      set({authUser : null})
+     set({selectedUser : null})
     }catch(error){
 toast.error(error.response.data.message);
     }

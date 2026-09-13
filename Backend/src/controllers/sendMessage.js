@@ -26,8 +26,9 @@ if(!text && !image){
   })
   await newMessage.save();
 
+
   return res.status(200).json({
-    message : "Message Sent Successfully"
+    message : newMessage
   })
 
 }catch(error){

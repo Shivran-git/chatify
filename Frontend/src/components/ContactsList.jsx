@@ -10,11 +10,10 @@ function ContactsList() {
     getAllContacts();
   }, [getAllContacts])
 
-console.log(allContacts)
 if(isUsersLoading) return <UserLoadingSkeleton/>
 if(allContacts.length === 0) return <NoContactsFound/>
-console.log(allContacts)
 
+console.log("I am being rendered")
   return (
     <>
     
