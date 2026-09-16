@@ -78,8 +78,7 @@ function ProfileHeader() {
             <button
             className='text-slate-400 hover:text-slate-200 transition-colors'
             onClick={()=>{
-              mouseClickSound.currentTime = 0 ;
-              mouseClickSound.play().catch((error)=> console.log("Audio play failed", error));
+             
               toggleSound();
             }}
             >
