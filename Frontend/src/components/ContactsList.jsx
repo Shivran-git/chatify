@@ -3,9 +3,10 @@ import { ChatStore } from '../store/ChatStore.js'
 import UserLoadingSkeleton from './UserLoadingSkeleton';
 import avatar from '../assets/avatar.png'
 import NoContactsFound from './NoContactsFound';
+import { useAuthStore } from '../store/AuthStore.js';
 function ContactsList() {
   const {getAllContacts, allContacts, isUsersLoading, setSelectedUser} = ChatStore();
-
+  const {onlineUsers} = useAuthStore();
   useEffect(()=>{
     getAllContacts();
   }, [getAllContacts])
@@ -24,7 +25,7 @@ console.log("I am being rendered")
         onClick={()=> setSelectedUser(contact)}
         >
         <div className='flex items-center gap-3'>
-          <div className={`avatar avatar-online `}>
+          <div className={`avatar ${onlineUsers.includes(contact._id) ? 'avatar-online ' : 'avatar-offline'} `}>
             <div className='size-12 rounded-full '>
               <img src={contact.profilePic || avatar} alt={contact.fullName}/>
             </div>

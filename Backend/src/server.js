@@ -8,8 +8,9 @@ import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import cloudinary from './Configurations/coudinary.js';
+import { app, server } from './utils/socket.js';
 
-const app = express();
+
 app.use(express.json({ limit : "10mb"}));
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -37,7 +38,7 @@ try {
   console.error("Cloudinary connection failed:", error.message);
 }
 }
-app.listen(process.env.PORT || 3000, ()=>{
+server.listen(process.env.PORT || 3000, ()=>{
     console.log("server is started. ");
     ConnectDb();
     checker();

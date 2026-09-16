@@ -1,6 +1,7 @@
 import User from "../models/User.js"
 import Message from "../models/message.model.js"
 import cloudinary from "../Configurations/coudinary.js";
+import { getReceiverSocketId, io } from "../utils/socket.js";
 
 export const sendMessage = async (req, res)=>{
 
@@ -25,6 +26,15 @@ if(!text && !image){
     image : imageUrl
   })
   await newMessage.save();
+
+// send message in real-time 
+
+
+ const receiverSocketid = getReceiverSocketId(yourId);
+
+ if(receiverSocketid){
+  io.to(receiverSocketid).emit("newMessage", newMessage) ;
+ }
 
 
   return res.status(200).json({
