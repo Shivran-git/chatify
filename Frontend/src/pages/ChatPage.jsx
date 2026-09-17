@@ -14,7 +14,7 @@ const {logout} = useAuthStore();
 
   return (
     <>
-       <div className="relative w-full max-w-6xl h-[635px] flex bg-amber-300">
+       <div className="relative w-full max-w-6xl h-[635px] flex bg-black">
         {/* LEFT SIDE */}
         <div className="w-80 bg-slate-800/50 backdrop-blur-sm flex flex-col">
         <ProfileHeader />
